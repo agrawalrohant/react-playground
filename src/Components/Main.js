@@ -1,10 +1,12 @@
 import React,{Component} from 'react';
 import Title from './Title';
 import Photowall from './PhotoWall';
+import AddPhoto from './AddPhoto';
  
 class Main extends Component{
 
   constructor(){
+    console.log('constructor');
     super();
     this.state = {
       posts:[{
@@ -21,9 +23,12 @@ class Main extends Component{
         id: "2",
         description: "On a vacation!",
         imageLink: "https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/08/24/104670887-VacationExplainsTHUMBWEB.1910x1000.jpg"
-        }]
+        }],
+        screen : "photo" // "addPhoto"
     }
+
     this.removePhoto = this.removePhoto.bind(this);
+    this.navigate = this.navigate.bind(this);
   }
 
   removePhoto(removePost){
@@ -34,10 +39,43 @@ class Main extends Component{
     // updateState
   }
 
+  navigate(){
+    this.setState({
+      screen : "addPhoto"
+    });
+  }
+
+  componentWillMount(){
+    console.log("componentWillMount");
+  }
+
+  componentDidMount(){
+    console.log("componentDidMount");
+  }
+
+  componentDidUpdate(){
+    console.log("componentDidUpdate");
+  }
+
     render(){
-      return <div>
-           <Title titleText={"Photowall"}/>
-           <Photowall posts={this.state.posts} onRemovePhoto={this.removePhoto}/>
+    console.log('render');
+      return   <div>
+       { 
+          this.state.screen === "photo" &&   ( 
+            <div>
+              <Title titleText={"Photowall"}/>
+              <Photowall posts={this.state.posts} onNavigate={this.navigate} onRemovePhoto={this.removePhoto}/>
+            </div>
+          )
+        }
+      
+         {
+           this.state.screen === "addPhoto" && (
+         <div>  
+          <AddPhoto/>
+          </div>
+           )
+         }  
       </div>
     }
   }
