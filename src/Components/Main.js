@@ -2,7 +2,6 @@ import React,{Component} from 'react';
 import Title from './Title';
 import Photowall from './PhotoWall';
  
-
 class Main extends Component{
 
   constructor(){
@@ -31,7 +30,8 @@ class Main extends Component{
     console.log(removePost.description);
     this.setState((state) => ({
       posts : state.posts.filter(post => post !== removePost)
-    }))
+    }));
+    // updateState
   }
 
     render(){
